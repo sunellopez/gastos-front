@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
-
+import { addIcons } from 'ionicons';
+import { lockClosed, eye, mailOutline, lockClosedOutline, analyticsOutline, personOutline, homeOutline, barChartOutline, } from 'ionicons/icons';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   imports: [IonApp, IonRouterOutlet],
 })
 export class AppComponent {
-  constructor() {}
+  constructor() {
+    addIcons({homeOutline, barChartOutline, lockClosed, eye, mailOutline, lockClosedOutline, analyticsOutline, personOutline});
+  }
 }

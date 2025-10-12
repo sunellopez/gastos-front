@@ -1,0 +1,39 @@
+<ion-label>
+  <p>Correo electrónico</p>
+</ion-label>
+
+<ion-input
+  class="custom ion-margin-bottom"
+  placeholder="tu@email.com"
+  type="email"
+  fill="outline"
+  mode="md"
+>
+  <ion-icon slot="start" name="mail-outline" aria-hidden="true"></ion-icon>
+</ion-input>
+
+<ion-label>
+  <p>Contraseña</p>
+</ion-label>
+
+<ion-input
+  class="custom"
+  placeholder="••••••••"
+  type="password"
+  value="123456"
+  fill="outline"
+  mode="md"
+>
+  <ion-icon
+    slot="start"
+    name="lock-closed-outline"
+    aria-hidden="true"
+  ></ion-icon>
+  <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+</ion-input>
+<div class="ion-text-end">
+  <p style="color: #9333ea; font-size: small; text-decoration: underline">
+    ¿Olvidaste tu contraseña?
+  </p>
+</div>
+<ion-button class="ion-padding-top" expand="block" mode="ios" (click)="onSubmit()">Iniciar sesión</ion-button>

@@ -1,0 +1,32 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="ion-text-center ion-padding-bottom">
+    <ion-button size="large">
+      <ion-icon slot="icon-only" name="analytics-outline" size="large"></ion-icon>
+    </ion-button>
+    <h1>MoneyTrack</h1>
+    <p>Controla tus gastos fácilmente</p>
+  </div>
+
+  <div class="login-card">
+    <ion-segment [(ngModel)]="selectedSegment" value="default" mode="ios">
+      <ion-segment-button value="login">
+        <ion-label>Iniciar sesión</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="signup">
+        <ion-label>Registrarse</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    
+    @if (selectedSegment === 'login') {
+      <div class="ion-padding-vertical ion-margin-top">
+        <app-login-form></app-login-form>
+      </div>
+    }
+    
+    @if (selectedSegment === 'signup') {
+      <div class="ion-padding-vertical ion-margin-top">
+        <app-signup-form></app-signup-form>
+      </div>
+    }
+  </div>
+</ion-content>

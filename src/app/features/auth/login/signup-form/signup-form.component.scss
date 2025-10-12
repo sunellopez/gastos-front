@@ -1,0 +1,21 @@
+p {
+    color: #4b5563;
+    font-weight: 600;
+}
+
+ion-input.custom {
+  --background: #fff;
+  --color: #000;
+  --placeholder-color: #4b5563;
+  --placeholder-opacity: 1;
+  --border-radius: 1rem;
+  --border-color: #dcdfe4;
+}
+
+ion-button {
+    --background: linear-gradient(to bottom right, #3b82f6, #9333ea);
+    --color: #fff;
+    --background-hover: #9ce0be;
+    --background-activated: linear-gradient(to bottom right, #9333ea, #3b82f6);
+    font-weight: 600;
+}
