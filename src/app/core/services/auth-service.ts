@@ -24,7 +24,7 @@ export class AuthService {
     return !!localStorage.getItem('auth_token');
   }
 
-  login(credentials: { email: string; password: string }): Observable<any> {
+  login(credentials: any): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/login`, credentials).pipe(
       tap((res: any) => {
         localStorage.setItem('auth_token', res.token);
