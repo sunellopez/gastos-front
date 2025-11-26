@@ -1,69 +1,73 @@
-<ion-label>
-  <p>Nombre completo</p>
-</ion-label>
+<form [formGroup]="form">
+  <ion-label>
+    <p>Nombre completo</p>
+  </ion-label>
+  
+  <ion-input
+    class="custom ion-margin-bottom"
+    placeholder="Juan Pérez"
+    type="text"
+    fill="outline"
+    mode="md"
+    formControlName="name"
+  >
+    <ion-icon slot="start" name="person-outline" aria-hidden="true"></ion-icon>
+  </ion-input>
+  
+  <ion-label>
+    <p>Correo electrónico</p>
+  </ion-label>
+  
+  <ion-input
+    class="custom ion-margin-bottom"
+    placeholder="tu@email.com"
+    type="email"
+    fill="outline"
+    mode="md"
+    formControlName="email"
+  >
+    <ion-icon slot="start" name="mail-outline" aria-hidden="true"></ion-icon>
+  </ion-input>
+  
+  <ion-label>
+    <p>Contraseña</p>
+  </ion-label>
+  
+  <ion-input
+    class="custom ion-margin-bottom"
+    placeholder="••••••••"
+    type="password"
+    fill="outline"
+    mode="md"
+    formControlName="password"
+  >
+    <ion-icon
+      slot="start"
+      name="lock-closed-outline"
+      aria-hidden="true"
+    ></ion-icon>
+    <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+  </ion-input>
+  
+  <ion-label>
+    <p>Confirmar contraseña</p>
+  </ion-label>
+  
+  <ion-input
+    class="custom ion-margin-bottom"
+    placeholder="••••••••"
+    type="password"
+    fill="outline"
+    mode="md"
+    formControlName="confirmPassword"
+  >
+    <ion-icon
+      slot="start"
+      name="lock-closed-outline"
+      aria-hidden="true"
+    ></ion-icon>
+    <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+  </ion-input>
+</form>
 
-<ion-input
-  class="custom ion-margin-bottom"
-  placeholder="Juan Pérez"
-  type="text"
-  fill="outline"
-  mode="md"
->
-  <ion-icon slot="start" name="person-outline" aria-hidden="true"></ion-icon>
-</ion-input>
-
-<ion-label>
-  <p>Correo electrónico</p>
-</ion-label>
-
-<ion-input
-  class="custom ion-margin-bottom"
-  placeholder="tu@email.com"
-  type="email"
-  fill="outline"
-  mode="md"
->
-  <ion-icon slot="start" name="mail-outline" aria-hidden="true"></ion-icon>
-</ion-input>
-
-<ion-label>
-  <p>Contraseña</p>
-</ion-label>
-
-<ion-input
-  class="custom ion-margin-bottom"
-  placeholder="••••••••"
-  type="password"
-  value="123456"
-  fill="outline"
-  mode="md"
->
-  <ion-icon
-    slot="start"
-    name="lock-closed-outline"
-    aria-hidden="true"
-  ></ion-icon>
-  <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-</ion-input>
-
-<ion-label>
-  <p>Confirmar contraseña</p>
-</ion-label>
-
-<ion-input
-  class="custom ion-margin-bottom"
-  placeholder="••••••••"
-  type="password"
-  value="123456"
-  fill="outline"
-  mode="md"
->
-  <ion-icon
-    slot="start"
-    name="lock-closed-outline"
-    aria-hidden="true"
-  ></ion-icon>
-  <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-</ion-input>
-
-<ion-button class="ion-padding-top" expand="block" mode="ios">Crear cuenta</ion-button>
+<ion-button class="ion-padding-top" expand="block" mode="ios" (click)="save()">Crear cuenta</ion-button>

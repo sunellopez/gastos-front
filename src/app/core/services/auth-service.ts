@@ -24,6 +24,10 @@ export class AuthService {
     return !!localStorage.getItem('auth_token');
   }
 
+  signUp(data: any): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}/sign-up`, data);
+  }
+
   login(credentials: any): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}/login`, credentials).pipe(
       tap((res: any) => {
