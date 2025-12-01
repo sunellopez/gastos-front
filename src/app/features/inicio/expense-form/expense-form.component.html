@@ -1,0 +1,29 @@
+<form [formGroup]="form">
+  <h5>Monto</h5>
+  <ion-item lines="none" class="item-custom">  
+    <ion-input aria-label="Amount" type="number" formControlName="amount">
+      <ion-icon slot="start" icon="logo-usd"></ion-icon>
+    </ion-input>
+  </ion-item>
+
+  <h5>Fecha</h5>
+  <ion-item lines="none" (click)="openCalendar()" class="item-custom">
+    <ion-icon slot="end" icon="calendar-outline" (click)="openCalendar()"></ion-icon>
+
+    <ion-datetime-button datetime="datetime" slot="start"></ion-datetime-button>
+    <ion-modal [keepContentsMounted]="true" style="--backdrop-opacity: 0.4;" [isOpen]="showCalendar" (didDismiss)="cancelCalendar()">
+      <ng-template>
+        <ion-datetime id="datetime" presentation="date" [preferWheel]="true" formControlName="date" [showDefaultButtons]="true" doneText="Confirmar" cancelText="Cancelar"></ion-datetime>
+      </ng-template>
+    </ion-modal>
+  </ion-item>
+  
+  <h5>Descripción</h5>
+  <ion-item lines="none">
+    <ion-textarea aria-label="description" formControlName="description" placeholder="Ej. Gasolina, comida, papelería..." rows="5"></ion-textarea>
+  </ion-item>
+
+  <ion-button expand="block" (click)="save()" [disabled]="form.invalid" class="ion-padding-top">
+    Guardar
+  </ion-button>
+</form>

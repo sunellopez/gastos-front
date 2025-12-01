@@ -1,0 +1,24 @@
+form {
+ padding: 1rem;
+ padding-top: 0.1rem;
+}
+
+ion-icon[slot="start"]  {
+    font-size: 1.5rem;
+}
+
+ion-datetime-button::part(native) {
+  background: none;
+}
+
+ion-item::part(native) {
+    border-radius: 14px;
+}
+
+ion-icon[slot="end"] {
+    font-size: 1.5rem;
+}
+
+ion-item.item-custom::part(native) {
+  height: 3.5rem;
+}

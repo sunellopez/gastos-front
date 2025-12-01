@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { lockClosed, eye, mailOutline, lockClosedOutline, analyticsOutline, personOutline, homeOutline, barChartOutline, } from 'ionicons/icons';
+import { add, addOutline, alertCircle, bookmarkOutline, calendarOutline, cartOutline, cashOutline, checkmarkCircle, close, closeOutline, createOutline, exitOutline, homeOutline, listOutline, logoUsd, logOutOutline, notificationsOutline, personCircleOutline, personOutline, pieChartOutline, rocketOutline, settingsOutline, syncOutline, walletOutline, mailOutline, lockClosed, mail, person, barChartOutline, lockClosedOutline, analyticsOutline } from 'ionicons/icons';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -9,6 +9,6 @@ import { lockClosed, eye, mailOutline, lockClosedOutline, analyticsOutline, pers
 })
 export class AppComponent {
   constructor() {
-    addIcons({homeOutline, barChartOutline, lockClosed, eye, mailOutline, lockClosedOutline, analyticsOutline, personOutline});
+    addIcons({ close, personOutline, settingsOutline, rocketOutline, syncOutline, bookmarkOutline, createOutline, personCircleOutline, logOutOutline, exitOutline, notificationsOutline, homeOutline, addOutline, closeOutline, add, alertCircle, checkmarkCircle, cartOutline, walletOutline, pieChartOutline, cashOutline, listOutline, logoUsd, calendarOutline, mailOutline, lockClosed, mail, person, barChartOutline, lockClosedOutline, analyticsOutline });
   }
 }

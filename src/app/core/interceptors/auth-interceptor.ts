@@ -3,7 +3,7 @@ import { AuthService } from '../services/auth-service';
 import { inject } from '@angular/core';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const authToken = inject(AuthService).isLoggedIn();
+  const authToken = inject(AuthService).getAuthToken();
   const headersConfig: Record<string, string> = {};
 
   if (authToken) { 

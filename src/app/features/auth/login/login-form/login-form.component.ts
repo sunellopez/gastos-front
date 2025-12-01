@@ -22,7 +22,11 @@ export class LoginFormComponent  implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/tabs'], { replaceUrl: true });
+    }
+  }
   
   onSubmit() {
     if (this.form.invalid) return;
@@ -32,7 +36,9 @@ export class LoginFormComponent  implements OnInit {
     this.authService.login(userData).subscribe({
       next: (res: any) => {
         if(res.success == 1){
-          this.router.navigate(['tabs/inicio']);
+          this.authService.setAuthToken(res.token);
+          this.authService.setSession(res.user);
+          this.router.navigate(['/tabs'], { replaceUrl: true });
         }
       },
       error: (err: any) => {

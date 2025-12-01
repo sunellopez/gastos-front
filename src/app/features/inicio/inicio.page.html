@@ -1,13 +1,101 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>inicio</ion-title>
+  <ion-toolbar color="light">
+    <ion-title>
+      Inicio
+    </ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" color="light">
   <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">inicio</ion-title>
+    <ion-toolbar color="light">
+      <ion-title size="large">Inicio</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <app-summary [summary]="summary()" [isLoadingSummary]="isLoadingSummary()"></app-summary>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="openNewExpenseModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-list>
+    <ion-list-header style="position: sticky; top: 0;  z-index: 10;" color="light">
+      <ion-label>Transacciones</ion-label>
+      <ion-button>Ver todas</ion-button>
+    </ion-list-header>
+    @if (isLoading) {
+    @for (item of [1,2,3,4,5]; track $index; let index = $index) {
+    <ion-item lines="none" color="light">
+      <ion-thumbnail slot="start" style="--size: 32px;">
+        <ion-skeleton-text [animated]="true" style="--border-radius: 9999px;"></ion-skeleton-text>
+      </ion-thumbnail>
+
+      <ion-label>
+        <h3>
+          <ion-skeleton-text [animated]="true" style="width: 80%; --border-radius: 9999px;"></ion-skeleton-text>
+        </h3>
+      </ion-label>
+      
+      <ion-skeleton-text  slot="end" [animated]="true" style="width: 30%; --border-radius: 9999px;"></ion-skeleton-text>
+    </ion-item>
+    }
+    } @else {
+      @for (expense of expenses; track expense.id) {
+      <ion-item button detail="false" lines="none" color="light">
+        <ion-icon slot="start" name="wallet-outline" size="large" color="medium"></ion-icon>
+        
+        <ion-label>
+          <strong>
+            {{expense.description}}
+          </strong>
+          <br>
+          <ion-note>
+            {{expense.date | date:'d MMMM y':'' }}
+          </ion-note>
+        </ion-label>
+        
+        <ion-note slot="end" color="danger">
+          -{{expense.amount | currency}}
+        </ion-note>
+      </ion-item>
+      } @empty {
+        @if (!isLoading) {
+          <ion-item lines="none" color="light">
+            <ion-label class="ion-text-center">Sin datos</ion-label>
+          </ion-item> 
+        }
+      }
+    } 
+  </ion-list>
+  <ion-infinite-scroll [disabled]="!hasMore" (ionInfinite)="loadExpenses($event)">
+    <ion-infinite-scroll-content loadingText="Cargando..."></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+  
+  <ion-modal
+    [isOpen]="isOpen"
+    (willDismiss)="handleDismiss($event)"
+  >
+    <ng-template>
+      <ion-header class="ion-no-border">
+        <ion-toolbar color="light">
+          <ion-buttons slot="start">
+            <ion-button (click)="isOpen = false">
+              <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content color="light">
+        <h1 class="ion-padding-horizontal">Nuevo Gasto</h1>
+        <ion-text color="medium">
+          <p class="ion-padding-horizontal">Ingrese los detalles de sus gastos para ayudarlo a realizar un seguimiento.</p>
+        </ion-text>
+
+        <app-expense-form></app-expense-form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>

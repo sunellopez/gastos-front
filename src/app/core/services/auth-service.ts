@@ -1,49 +1,69 @@
 import { HttpClient } from '@angular/common/http';
-import { computed, effect, inject, Injectable, signal } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly http = inject(HttpClient);
-  private readonly router = inject(Router);
+  private readonly authTokenKey = 'auth_token';
+  private readonly userKey = 'user';
 
-  private readonly isAuthenticatedSignal = signal(this.hasStoredToken());
-  public readonly isAuthenticated = computed(() => this.isAuthenticatedSignal());
+  private apiUrl = environment.apiUrl;
+  private http = inject(HttpClient);
 
-  constructor() {
-    effect(() => {
-      console.log('Authentication status changed:', this.isAuthenticated());
-    });
+  private authToken = signal<string | null>(this.getAuthTokenFromStorage());
+  private user = signal<any | null>(this.getUserFromStorage());
+
+  readonly isAuthenticated = computed(() => !!this.authToken());
+
+  constructor() {}
+
+  // === TOKEN ===
+  getAuthToken(): string {
+    return this.authToken() ?? '';
   }
 
-  private hasStoredToken(): boolean {
-    return !!localStorage.getItem('auth_token');
+  setAuthToken(token: string): void {
+    localStorage.setItem(this.authTokenKey, token);
+    this.authToken.set(token);
   }
 
-  signUp(data: any): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/sign-up`, data);
+  private getAuthTokenFromStorage(): string | null {
+    return localStorage.getItem(this.authTokenKey);
   }
 
-  login(credentials: any): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}/login`, credentials).pipe(
-      tap((res: any) => {
-        localStorage.setItem('auth_token', res.token);
-        this.isAuthenticatedSignal.set(true);
-      }),
-    );
+  getUserSignal() {
+    return this.user;
   }
 
-  logout(): void {
-    localStorage.removeItem('auth_token');
-    this.isAuthenticatedSignal.set(false);
-    this.router.navigate(['/login']);
+  private getUserFromStorage(): any | null {
+    const saved = localStorage.getItem(this.userKey);
+    return saved ? JSON.parse(saved) : null;
   }
 
-  isLoggedIn(): boolean {
-    return this.isAuthenticated();
+  async setSession(user: any) {
+    localStorage.setItem(this.userKey, JSON.stringify(user));
+    this.user.set(user);
+  }
+
+  clearSession() {
+    localStorage.removeItem(this.authTokenKey);
+    localStorage.removeItem(this.userKey);
+    this.authToken.set(null);
+    this.user.set(null);
+  }
+
+  // === API ===
+  login(userData: any) {
+    return this.http.post<any>(`${this.apiUrl}/login`, userData);
+  }
+
+  logout() {
+    return this.http.post(`${this.apiUrl}/logout`, {});
+  }
+
+  signUp(userData: any) {
+    return this.http.post(`${this.apiUrl}/sign-up`, userData);
   }
 }
