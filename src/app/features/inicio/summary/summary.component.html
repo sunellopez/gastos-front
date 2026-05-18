@@ -1,7 +1,7 @@
-<ion-card>
+<ion-card class="glass-summary-card">
   <ion-card-header>
-    <ion-card-title>Resumen Semanal</ion-card-title>
-    <ion-card-subtitle class="ion-text-lowercase">
+    <ion-card-title>Resumen de la Semana</ion-card-title>
+    <ion-card-subtitle>
       @if (!isLoadingSummary()) {
         {{ summary().start | date:'d MMMM y':'' }} - {{ summary().end | date:'d MMMM y':'' }}
       } @else {
@@ -11,25 +11,35 @@
   </ion-card-header>
 
   <ion-card-content>
-    <ion-list lines="none">
-      <ion-item class="ion-no-padding">
-        @if (!isLoadingSummary()) {
-          <ion-icon name="cash-outline" slot="start" color="danger"></ion-icon>
-          <ion-label>Total Gastado</ion-label>
-          <ion-note slot="end" color="danger">{{ summary().total | currency }}</ion-note>
-        } @else {
-          <ion-skeleton-text [animated]="true" style="width: 100%; --border-radius: 9999px;"></ion-skeleton-text>
-        }
+    <ion-list lines="none" class="summary-list">
+      <!-- Total Gastado -->
+      <ion-item class="summary-item">
+        <div class="item-wrapper">
+          <div class="summary-icon-box expense-box">
+            <ion-icon name="cash-outline"></ion-icon>
+          </div>
+          <ion-label class="summary-label">Total Gastado</ion-label>
+          @if (!isLoadingSummary()) {
+            <span class="summary-value" slot="end">{{ summary().total | currency:'MXN':'symbol':'1.2-2' }}</span>
+          } @else {
+            <ion-skeleton-text [animated]="true" style="width: 70px; height: 18px; --border-radius: 4px;" slot="end"></ion-skeleton-text>
+          }
+        </div>
       </ion-item>
 
-      <ion-item class="ion-no-padding">
-        @if (!isLoadingSummary()) {
-          <ion-icon name="list-outline" slot="start" color="primary"></ion-icon>
-          <ion-label>Número de gastos</ion-label>
-          <ion-note slot="end">{{ summary().count }}</ion-note>
-        } @else {
-          <ion-skeleton-text [animated]="true" style="width: 100%; --border-radius: 9999px;"></ion-skeleton-text>
-        }
+      <!-- Cantidad de Gastos -->
+      <ion-item class="summary-item">
+        <div class="item-wrapper">
+          <div class="summary-icon-box count-box">
+            <ion-icon name="list-outline"></ion-icon>
+          </div>
+          <ion-label class="summary-label">Cantidad de Gastos</ion-label>
+          @if (!isLoadingSummary()) {
+            <span class="summary-value" slot="end">{{ summary().count }} transacciones</span>
+          } @else {
+            <ion-skeleton-text [animated]="true" style="width: 50px; height: 18px; --border-radius: 4px;" slot="end"></ion-skeleton-text>
+          }
+        </div>
       </ion-item>
     </ion-list>
   </ion-card-content>

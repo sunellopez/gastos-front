@@ -1,0 +1,296 @@
+.perfil-content {
+  --background: #f8fafc;
+  font-family: 'Outfit', 'Inter', sans-serif;
+  position: relative;
+}
+
+/* Glassmorphism Background Orbs */
+.glass-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.28;
+  animation: float-around 20s infinite alternate ease-in-out;
+}
+
+.orb-purple {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, #8b5cf6, #d946ef);
+  top: -60px;
+  right: -60px;
+}
+
+.orb-indigo {
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle, #3b82f6, #6366f1);
+  bottom: 8%;
+  left: -80px;
+  animation-duration: 24s;
+}
+
+/* Header greeting */
+.premium-title {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 1.35rem;
+  color: #0f172a;
+}
+
+.transparent-toolbar {
+  --background: rgba(248, 250, 252, 0.7);
+  --border-style: none;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.perfil-container {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Avatar Box */
+.profile-header-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.avatar-glow-ring {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%);
+  padding: 3px;
+  box-shadow: 0 8px 24px rgba(139, 92, 246, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.avatar-fallback {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #8b5cf6;
+  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.profile-user-name {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+}
+
+.profile-user-email {
+  font-size: 0.88rem;
+  color: #64748b;
+  margin: 0.2rem 0 0 0;
+}
+
+/* Glassmorphic Edit Card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.04);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.07);
+    border-color: rgba(255, 255, 255, 0.85);
+  }
+}
+
+.profile-card {
+  ion-card-header {
+    padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+  }
+
+  ion-card-subtitle {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #94a3b8;
+    letter-spacing: 0.08rem;
+  }
+
+  .card-title-custom {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #1e293b;
+    margin-top: 0.2rem;
+  }
+
+  ion-card-content {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+  }
+
+  h5 {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #475569;
+    margin-top: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Custom rounded inputs */
+.input-item-custom {
+  --background: rgba(0, 0, 0, 0.03);
+  --border-radius: 16px;
+  --padding-start: 1rem;
+  --inner-padding-end: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  margin-bottom: 0.4rem;
+  transition: border-color 0.2s ease;
+
+  &.item-has-focus {
+    border-color: rgba(139, 92, 246, 0.4);
+    --background: rgba(255, 255, 255, 0.6);
+  }
+
+  ion-input {
+    font-size: 0.88rem;
+    color: #1e293b;
+    font-weight: 500;
+  }
+}
+
+.input-icon-custom {
+  font-size: 1.15rem;
+  color: #64748b;
+  margin-right: 0.6rem;
+}
+
+.error-msg {
+  font-size: 0.72rem;
+  color: #ef4444;
+  font-weight: 600;
+  margin-top: 0.2rem;
+  margin-left: 0.5rem;
+}
+
+/* Buttons */
+.btn-save-custom {
+  --background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  --background-hover: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+  --border-radius: 16px;
+  --color: #ffffff;
+  font-weight: 700;
+  font-size: 0.92rem;
+  margin-top: 1.5rem;
+  height: 48px;
+  box-shadow: 0 4px 16px rgba(139, 92, 246, 0.25);
+}
+
+.logout-wrapper {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-logout-custom {
+  --color: #ef4444;
+  --background: rgba(239, 68, 68, 0.05);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  border-radius: 18px;
+  font-weight: 700;
+  font-size: 0.92rem;
+  width: 100%;
+  height: 48px;
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.04);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.2s ease, background 0.2s ease;
+
+  &:hover {
+    --background: rgba(239, 68, 68, 0.1);
+    transform: scale(0.99);
+  }
+}
+
+/* Animations */
+@keyframes float-around {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -40px) scale(1.06); }
+  100% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  .perfil-content {
+    --background: #0b0f19;
+  }
+
+  .transparent-toolbar {
+    --background: rgba(11, 15, 25, 0.8) !important;
+  }
+
+  .premium-title {
+    color: #f8fafc !important;
+  }
+
+  .profile-user-name { color: #f8fafc !important; }
+  .profile-user-email { color: #94a3b8 !important; }
+
+  .glass-card {
+    background: rgba(15, 23, 42, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  }
+
+  .card-title-custom { color: #f1f5f9 !important; }
+
+  .input-item-custom {
+    --background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+
+    &.item-has-focus {
+      border-color: rgba(167, 139, 250, 0.4) !important;
+      --background: rgba(255, 255, 255, 0.08) !important;
+    }
+
+    ion-input { color: #f1f5f9 !important; }
+  }
+
+  .input-icon-custom { color: #94a3b8 !important; }
+
+  .profile-card h5 { color: #94a3b8 !important; }
+
+  .btn-logout-custom {
+    --background: rgba(239, 68, 68, 0.08) !important;
+    border-color: rgba(239, 68, 68, 0.2) !important;
+  }
+}

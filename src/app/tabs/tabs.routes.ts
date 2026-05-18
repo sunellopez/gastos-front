@@ -12,6 +12,11 @@ export const routes: Routes = [
           import('../features/inicio/inicio.page').then((m) => m.InicioPage),
       },
       {
+        path: 'inicio/historial',
+        loadComponent: () =>
+          import('../features/inicio/historial/historial.page').then((m) => m.HistorialPage),
+      },
+      {
         path: 'dashboard',
         loadComponent: () =>
           import('../features/dashboard/dashboard.page').then((m) => m.DashboardPage),

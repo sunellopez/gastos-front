@@ -1,13 +1,85 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>perfil</ion-title>
+  <ion-toolbar class="transparent-toolbar">
+    <ion-title class="premium-title">
+      Perfil
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">perfil</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="perfil-content">
+  <!-- Fondo con esferas decorativas de gradiente para Glassmorphism -->
+  <div class="glass-background">
+    <div class="glow-orb orb-purple"></div>
+    <div class="glow-orb orb-indigo"></div>
+  </div>
+
+  <div class="perfil-container ion-padding">
+    <!-- Encabezado de Avatar de Usuario -->
+    <div class="profile-header-box animate__animated animate__fadeIn">
+      <div class="avatar-glow-ring">
+        <div class="avatar-fallback">
+          {{ user()?.name ? user().name.charAt(0).toUpperCase() : 'U' }}
+        </div>
+      </div>
+      <h2 class="profile-user-name">{{ user()?.name || 'Usuario' }}</h2>
+      <p class="profile-user-email">{{ user()?.email || 'usuario@example.com' }}</p>
+    </div>
+
+    <!-- Tarjeta de Edición de Perfil -->
+    <ion-card class="glass-card profile-card animate__animated animate__fadeInUp">
+      <ion-card-header>
+        <ion-card-subtitle>CONFIGURACIÓN DE CUENTA</ion-card-subtitle>
+        <ion-card-title class="card-title-custom">Editar Información</ion-card-title>
+      </ion-card-header>
+      
+      <ion-card-content>
+        <form [formGroup]="form" (ngSubmit)="save()">
+          <!-- Campo Nombre -->
+          <h5>Nombre Completo</h5>
+          <ion-item lines="none" class="input-item-custom">
+            <ion-icon name="person" slot="start" class="input-icon-custom"></ion-icon>
+            <ion-input 
+              formControlName="name" 
+              type="text" 
+              placeholder="Ingresa tu nombre">
+            </ion-input>
+          </ion-item>
+          <div class="error-msg" *ngIf="form.get('name')?.touched && form.get('name')?.invalid">
+            El nombre es obligatorio y debe tener al menos 3 caracteres.
+          </div>
+
+          <!-- Campo Correo -->
+          <h5>Correo Electrónico</h5>
+          <ion-item lines="none" class="input-item-custom">
+            <ion-icon name="mail" slot="start" class="input-icon-custom"></ion-icon>
+            <ion-input 
+              formControlName="email" 
+              type="email" 
+              placeholder="Ingresa tu correo">
+            </ion-input>
+          </ion-item>
+          <div class="error-msg" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
+            Ingresa un correo electrónico válido.
+          </div>
+
+          <!-- Botón de Guardar Cambios -->
+          <ion-button 
+            type="submit" 
+            expand="block" 
+            [disabled]="form.invalid" 
+            class="btn-save-custom ion-padding-top">
+            Guardar Cambios
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Sección de Cierre de Sesión -->
+    <div class="logout-wrapper animate__animated animate__fadeInUp">
+      <ion-button fill="clear" expand="block" class="btn-logout-custom" (click)="logout()">
+        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+        Cerrar Sesión
+      </ion-button>
+    </div>
+  </div>
 </ion-content>

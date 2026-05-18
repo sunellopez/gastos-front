@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
-import { IonThumbnail, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonNote, IonList, IonFab, IonFabButton, IonIcon, IonModal, IonButtons, IonButton, IonInfiniteScroll, IonInfiniteScrollContent, IonSkeletonText, IonListHeader, IonText } from '@ionic/angular/standalone';
+import { IonThumbnail, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonList, IonFab, IonFabButton, IonIcon, IonModal, IonButtons, IonButton, IonSkeletonText, IonCard, NavController, IonCardContent, IonCardHeader, IonCardSubtitle } from '@ionic/angular/standalone';
 import { ExpenseService } from '../../core/services/expense-service';
-import { CurrencyPipe, DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe, CommonModule } from '@angular/common';
 import { finalize } from 'rxjs';
 import { ExpenseFormComponent } from './expense-form/expense-form.component';
 import { SummaryComponent } from './summary/summary.component';
@@ -9,15 +9,25 @@ import { SummaryComponent } from './summary/summary.component';
   selector: 'app-inicio',
   templateUrl: './inicio.page.html',
   styleUrls: ['./inicio.page.scss'],
-  imports: [IonText, IonListHeader, SummaryComponent, DatePipe, IonThumbnail, IonSkeletonText, CurrencyPipe, IonInfiniteScrollContent, IonInfiniteScroll, IonButton, IonButtons, ExpenseFormComponent, IonModal, IonIcon, IonFabButton, IonFab, IonList, IonNote, IonLabel, IonItem, IonHeader, IonToolbar, IonTitle, IonContent],
+  imports: [
+    SummaryComponent, DatePipe, IonThumbnail, IonSkeletonText, CurrencyPipe, 
+    IonButton, IonButtons, ExpenseFormComponent, IonModal, IonIcon, 
+    IonFabButton, IonFab, IonList, IonLabel, IonItem, IonHeader, 
+    IonToolbar, IonTitle, IonContent, IonCard, CommonModule,
+    IonCardContent, IonCardHeader, IonCardSubtitle
+  ],
   standalone: true
 })
 
 export class InicioPage implements OnInit {
 
    private expenseService = inject(ExpenseService);
+   private navCtrl = inject(NavController);
   
   protected isOpen = false;
+  protected isDetailOpen = false;
+  protected selectedExpense = signal<any>(null);
+
   protected summary = signal<any>({
     total: 0,
     start: '',
@@ -62,6 +72,15 @@ export class InicioPage implements OnInit {
 
   openNewExpenseModal() {
     this.isOpen = true;
+  }
+
+  goToHistorial() {
+    this.navCtrl.navigateForward(['/tabs/inicio/historial']);
+  }
+
+  openDetail(expense: any) {
+    this.selectedExpense.set(expense);
+    this.isDetailOpen = true;
   }
 
   handleDismiss(event: CustomEvent) {

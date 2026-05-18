@@ -66,4 +66,8 @@ export class AuthService {
   signUp(userData: any) {
     return this.http.post(`${this.apiUrl}/sign-up`, userData);
   }
+
+  updateProfile(profileData: any) {
+    return this.http.put<any>(`${this.apiUrl}/update-profile`, profileData);
+  }
 }

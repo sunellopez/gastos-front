@@ -1,3 +1,16 @@
 <ion-app>
   <ion-router-outlet></ion-router-outlet>
+
+  <!-- Global Glassmorphic Premium Spinner Loader -->
+  @if (loadingService.isLoading()) {
+    <div class="global-loader-overlay">
+      <div class="loader-glass-card">
+        <div class="spinner-ring"></div>
+        <div class="spinner-logo">
+          <ion-icon name="sparkles"></ion-icon>
+        </div>
+        <p class="loader-text">Procesando...</p>
+      </div>
+    </div>
+  }
 </ion-app>

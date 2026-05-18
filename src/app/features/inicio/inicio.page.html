@@ -1,85 +1,112 @@
 <ion-header [translucent]="true">
-  <ion-toolbar color="light">
-    <ion-title>
+  <ion-toolbar class="transparent-toolbar">
+    <ion-title class="premium-title">
       Inicio
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true" color="light">
-  <ion-header collapse="condense">
-    <ion-toolbar color="light">
-      <ion-title size="large">Inicio</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-summary [summary]="summary()" [isLoadingSummary]="isLoadingSummary()"></app-summary>
+<ion-content [fullscreen]="true" class="inicio-content">
+  <!-- Fondo con esferas decorativas de gradiente -->
+  <div class="glass-background">
+    <div class="glow-orb orb-purple"></div>
+    <div class="glow-orb orb-indigo"></div>
+  </div>
 
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <div class="inicio-container">
+    <!-- Cabecera de Bienvenida -->
+    <div class="header-welcome animate__animated animate__fadeIn">
+      <p>Control de Gastos,</p>
+      <h1>Mi Actividad</h1>
+    </div>
+
+    <!-- Componente de Resumen Semanal Semitransparente -->
+    <app-summary [summary]="summary()" [isLoadingSummary]="isLoadingSummary()"></app-summary>
+
+    <!-- Historial de Transacciones Glassmorphic -->
+    <ion-card class="transactions-card">
+      <div class="list-header-custom">
+        <ion-label>Historial de Gastos</ion-label>
+        <ion-button fill="clear" (click)="goToHistorial()">Ver todo</ion-button>
+      </div>
+
+      <ion-list class="transparent-list" lines="none">
+        <!-- Estado de carga -->
+        @if (isLoading) {
+        @for (item of [1,2,3,4]; track $index) {
+        <ion-item class="skeleton-item">
+          <ion-thumbnail slot="start" style="--size: 38px; margin: 0;">
+            <ion-skeleton-text [animated]="true" style="--border-radius: 12px;"></ion-skeleton-text>
+          </ion-thumbnail>
+          <ion-label style="margin-left: 0.8rem;">
+            <h3>
+              <ion-skeleton-text [animated]="true" style="width: 70%; --border-radius: 4px;"></ion-skeleton-text>
+            </h3>
+            <p>
+              <ion-skeleton-text [animated]="true" style="width: 40%; --border-radius: 4px;"></ion-skeleton-text>
+            </p>
+          </ion-label>
+          <ion-skeleton-text slot="end" [animated]="true"
+            style="width: 50px; height: 16px; --border-radius: 4px;"></ion-skeleton-text>
+        </ion-item>
+        }
+        } @else {
+        <!-- Listado real -->
+        @for (expense of expenses; track expense.id) {
+        <ion-item button detail="false" class="transaction-item" (click)="openDetail(expense)">
+          <div class="item-content">
+            <!-- Icono de Transacción (Normal vs Anómalo) -->
+            <div class="tx-icon-box" [class.anomaly-box]="expense.is_anomalous == 1"
+              [class.normal-box]="expense.is_anomalous != 1">
+              <ion-icon [name]="expense.is_anomalous == 1 ? 'alert-circle' : 'wallet-outline'"></ion-icon>
+            </div>
+
+            <!-- Detalles de la Transacción -->
+            <div class="tx-info">
+              <h3 class="tx-desc">{{ expense.description }}</h3>
+
+              <div class="tx-meta-wrapper">
+                <!-- Categoría asignada -->
+                <span class="tx-category-badge">{{ expense.category || 'Otros' }}</span>
+                <!-- Alerta si es anómalo -->
+                @if (expense.is_anomalous == 1) {
+                <span class="tx-anomaly-badge">⚠️ Inusual</span>
+                }
+                <!-- Fecha -->
+                <span class="tx-date">{{ expense.date | date:'dd/MM/yyyy' }}</span>
+              </div>
+            </div>
+
+            <!-- Monto -->
+            <div class="tx-amount-box">
+              <span class="tx-amount">-{{ expense.amount | currency:'MXN':'symbol':'1.2-2' }}</span>
+              <span class="tx-currency">MXN</span>
+            </div>
+          </div>
+        </ion-item>
+        } @empty {
+        <div class="tx-empty">
+          <ion-icon name="wallet-outline"></ion-icon>
+          <p>No tienes gastos registrados aún</p>
+        </div>
+        }
+        }
+      </ion-list>
+    </ion-card>
+  </div>
+
+  <!-- Botón Flotante para Nuevo Gasto (Posicionado Correctamente) -->
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end" class="fab-custom">
     <ion-fab-button (click)="openNewExpenseModal()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
-  <ion-list>
-    <ion-list-header style="position: sticky; top: 0;  z-index: 10;" color="light">
-      <ion-label>Transacciones</ion-label>
-      <ion-button>Ver todas</ion-button>
-    </ion-list-header>
-    @if (isLoading) {
-    @for (item of [1,2,3,4,5]; track $index; let index = $index) {
-    <ion-item lines="none" color="light">
-      <ion-thumbnail slot="start" style="--size: 32px;">
-        <ion-skeleton-text [animated]="true" style="--border-radius: 9999px;"></ion-skeleton-text>
-      </ion-thumbnail>
-
-      <ion-label>
-        <h3>
-          <ion-skeleton-text [animated]="true" style="width: 80%; --border-radius: 9999px;"></ion-skeleton-text>
-        </h3>
-      </ion-label>
-      
-      <ion-skeleton-text  slot="end" [animated]="true" style="width: 30%; --border-radius: 9999px;"></ion-skeleton-text>
-    </ion-item>
-    }
-    } @else {
-      @for (expense of expenses; track expense.id) {
-      <ion-item button detail="false" lines="none" color="light">
-        <ion-icon slot="start" name="wallet-outline" size="large" color="medium"></ion-icon>
-        
-        <ion-label>
-          <strong>
-            {{expense.description}}
-          </strong>
-          <br>
-          <ion-note>
-            {{expense.date | date:'d MMMM y':'' }}
-          </ion-note>
-        </ion-label>
-        
-        <ion-note slot="end" color="danger">
-          -{{expense.amount | currency}}
-        </ion-note>
-      </ion-item>
-      } @empty {
-        @if (!isLoading) {
-          <ion-item lines="none" color="light">
-            <ion-label class="ion-text-center">Sin datos</ion-label>
-          </ion-item> 
-        }
-      }
-    } 
-  </ion-list>
-  <ion-infinite-scroll [disabled]="!hasMore" (ionInfinite)="loadExpenses($event)">
-    <ion-infinite-scroll-content loadingText="Cargando..."></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
-  
-  <ion-modal
-    [isOpen]="isOpen"
-    (willDismiss)="handleDismiss($event)"
-  >
+  <!-- Modal para Agregar Gasto -->
+  <ion-modal [isOpen]="isOpen" (willDismiss)="handleDismiss($event)">
     <ng-template>
-      <ion-header class="ion-no-border">
-        <ion-toolbar color="light">
+      <ion-header class="modal-header-custom">
+        <ion-toolbar>
           <ion-buttons slot="start">
             <ion-button (click)="isOpen = false">
               <ion-icon slot="icon-only" name="close"></ion-icon>
@@ -88,13 +115,102 @@
         </ion-toolbar>
       </ion-header>
 
-      <ion-content color="light">
-        <h1 class="ion-padding-horizontal">Nuevo Gasto</h1>
-        <ion-text color="medium">
-          <p class="ion-padding-horizontal">Ingrese los detalles de sus gastos para ayudarlo a realizar un seguimiento.</p>
-        </ion-text>
+      <ion-content style="--background: #f8fafc;">
+        <div class="modal-title-box">
+          <h1>Nuevo Gasto</h1>
+          <p>La Inteligencia Artificial categorizará y analizará tu gasto de forma automática.</p>
+        </div>
 
         <app-expense-form></app-expense-form>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <!-- Modal para Detalle de Gasto -->
+  <ion-modal [isOpen]="isDetailOpen" (willDismiss)="isDetailOpen = false" class="detail-modal">
+    <ng-template>
+      <ion-header class="modal-header-custom">
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="isDetailOpen = false">
+              <ion-icon slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title class="premium-title">Detalle del Gasto</ion-title>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content style="--background: #f8fafc;">
+        @if (selectedExpense()) {
+        <div class="detail-container">
+          <!-- Circulo de Categoria -->
+          <div class="detail-avatar-box">
+            <div class="category-icon-glow" [class.anomaly-glow]="selectedExpense().is_anomalous == 1">
+              <ion-icon [name]="selectedExpense().is_anomalous == 1 ? 'alert-circle' : 'wallet-outline'"></ion-icon>
+            </div>
+            <span class="detail-category-name">{{ selectedExpense().category || 'Otros' }}</span>
+          </div>
+
+          <!-- Cantidad de Gasto -->
+          <div class="detail-amount-box">
+            <h1 class="detail-amount">-{{ selectedExpense().amount | currency:'MXN':'symbol':'1.2-2' }}</h1>
+            <p class="detail-currency">Pesos Mexicanos (MXN)</p>
+          </div>
+
+          <!-- Tabla de Atributos Glassmorphic -->
+          <ion-card class="glass-card detail-card">
+            <ion-card-content class="ion-no-padding">
+              <ion-list lines="none" class="transparent-list-detail">
+                <ion-item class="detail-item">
+                  <ion-icon name="document-text-outline" slot="start"></ion-icon>
+                  <ion-label>
+                    <h3>Descripción</h3>
+                    <p class="detail-value">{{ selectedExpense().description }}</p>
+                  </ion-label>
+                </ion-item>
+
+                <ion-item class="detail-item">
+                  <ion-icon name="calendar-outline" slot="start"></ion-icon>
+                  <ion-label>
+                    <h3>Fecha</h3>
+                    <p class="detail-value">{{ selectedExpense().date | date:'dd MMMM yyyy':'' }}</p>
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+
+          <!-- Sección de Análisis de Inteligencia Artificial (ML) -->
+          <ion-card class="glass-card detail-card ml-card" [class.anomaly-card]="selectedExpense().is_anomalous == 1">
+            <ion-card-header>
+              <ion-card-subtitle class="ml-subtitle">🤖 ANÁLISIS DE INTELIGENCIA ARTIFICIAL</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <!-- Caso Anómalo -->
+              @if (selectedExpense().is_anomalous == 1) {
+              <div class="ml-status-box anomaly-status">
+                <ion-icon name="warning"></ion-icon>
+                <span><strong>Gasto Inusual Detectado</strong></span>
+              </div>
+              <p class="ml-text">
+                Este gasto fue clasificado como una anomalía (score: <strong>{{ selectedExpense().anomaly_score ||
+                  '0.90' }}</strong>). Su monto o descripción no se ajustan a tu patrón habitual de consumo.
+              </p>
+              } @else {
+              <!-- Caso Normal -->
+              <div class="ml-status-box normal-status">
+                <ion-icon name="checkmark-circle"></ion-icon>
+                <span><strong>Gasto Normal</strong></span>
+              </div>
+              <p class="ml-text">
+                La Inteligencia Artificial determinó que este cargo se encuentra dentro de tus límites y patrones de
+                gasto habituales.
+              </p>
+              }
+            </ion-card-content>
+          </ion-card>
+        </div>
+        }
       </ion-content>
     </ng-template>
   </ion-modal>

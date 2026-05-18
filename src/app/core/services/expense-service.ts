@@ -12,8 +12,15 @@ export class ExpenseService {
   
   constructor() { }
 
-  getExpenses(page: number = 1):Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/expenses?page=${page}`);
+  getExpenses(page: number = 1, search?: string, filter?: string): Observable<any> {
+    let url = `${this.apiUrl}/expenses?page=${page}`;
+    if (search) {
+      url += `&search=${encodeURIComponent(search)}`;
+    }
+    if (filter && filter !== 'todos') {
+      url += `&filter=${filter}`;
+    }
+    return this.http.get<any>(url);
   }
 
   add(expense: any) {

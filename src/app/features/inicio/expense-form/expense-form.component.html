@@ -20,10 +20,33 @@
   
   <h5>Descripción</h5>
   <ion-item lines="none">
-    <ion-textarea aria-label="description" formControlName="description" placeholder="Ej. Gasolina, comida, papelería..." rows="5"></ion-textarea>
+    <ion-textarea aria-label="description" formControlName="description" placeholder="Ej. Gasolina, comida, papelería..." rows="3"></ion-textarea>
   </ion-item>
 
-  <ion-button expand="block" (click)="save()" [disabled]="form.invalid" class="ion-padding-top">
-    Guardar
+  <!-- 🤖 Sección de Inteligencia Artificial para Categorización -->
+  <div class="category-container" *ngIf="detectedCategory || (top3Categories && top3Categories.length > 0)">
+    <!-- Caso A: Confianza alta (Autodetección) -->
+    <div class="category-autodetect" *ngIf="detectedCategory">
+      <ion-icon name="sparkles"></ion-icon>
+      <span>Categoría sugerida: <strong>{{ detectedCategory }}</strong> ({{ (detectedConfidence * 100).toFixed(0) }}%)</span>
+    </div>
+
+    <!-- Caso B: Confianza baja (Sugerencias Top-3) -->
+    <div class="category-suggestions" *ngIf="!detectedCategory && top3Categories.length > 0">
+      <p>🤖 Selecciona una categoría sugerida por la IA:</p>
+      <div class="chips-wrapper">
+        <div 
+          *ngFor="let cat of top3Categories" 
+          class="category-chip" 
+          (click)="selectCategory(cat.categoria)">
+          <ion-icon name="folder-open-outline"></ion-icon>
+          {{ cat.categoria }} ({{ (cat.probabilidad * 100).toFixed(0) }}%)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ion-button expand="block" (click)="save()" [disabled]="form.invalid" class="btn-save-custom">
+    Guardar Gasto
   </ion-button>
 </form>

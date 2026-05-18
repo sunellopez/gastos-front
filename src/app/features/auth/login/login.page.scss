@@ -11,7 +11,7 @@ ion-segment {
   ion-segment-button {
     --color: #4b5563;
     --color-checked: #fff;
-    --indicator-color: linear-gradient(to bottom right, #3b82f6, #9333ea);
+    --indicator-color: linear-gradient(to bottom right, #8b5cf6, #6366f1);
     flex: 1 1 0%;
     padding: 0.5rem 1rem;
     font-weight: 600;
@@ -27,17 +27,48 @@ ion-input.custom {
   --border-radius: 1rem;
   --border-color: #dcdfe4;
 }
+
 ion-button {
-    --background: linear-gradient(to bottom right, #3b82f6, #9333ea);
+    --background: linear-gradient(135deg, #8b5cf6, #6366f1);
     --color: #fff;
-    --background-hover: #9ce0be;
-    --background-activated: linear-gradient(to bottom right, #9333ea, #3b82f6);
+    --background-hover: #7c3aed;
+    --background-activated: linear-gradient(135deg, #6366f1, #8b5cf6);
     font-weight: 600;
 }
+
 .login-card {
   background-color: #fff;
   height: auto;
   width: 100%;
   padding: 1.5rem;
   border-radius: 16px;
+}
+
+/* ---- Dark Mode ---- */
+@media (prefers-color-scheme: dark) {
+  p {
+    color: #94a3b8;
+  }
+
+  ion-segment {
+    --background: rgba(255, 255, 255, 0.06);
+
+    ion-segment-button {
+      --color: #94a3b8;
+      --color-checked: #ffffff;
+    }
+  }
+
+  ion-input.custom {
+    --background: rgba(255, 255, 255, 0.06);
+    --color: #f8fafc;
+    --placeholder-color: #94a3b8;
+    --placeholder-opacity: 1;
+    --border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .login-card {
+    background-color: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+  }
 }

@@ -1,13 +1,169 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>dashboard</ion-title>
+  <ion-toolbar class="transparent-toolbar">
+    <ion-title class="premium-title">
+      Dashboard
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">dashboard</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="dashboard-content">
+  <!-- Fondo con esferas decorativas de gradiente para Glassmorphism -->
+  <div class="glass-background">
+    <div class="glow-orb orb-purple"></div>
+    <div class="glow-orb orb-indigo"></div>
+  </div>
+
+  <div class="dashboard-container ion-padding">
+    <!-- Sección de Bienvenida -->
+    <div class="welcome-section animate__animated animate__fadeIn">
+      <p class="greeting-subtitle">Bienvenido de vuelta,</p>
+      <h1 class="greeting-title">{{ user()?.name || 'Usuario' }} 👋</h1>
+      <p class="greeting-desc">Aquí tienes el análisis en tiempo real de tus gastos y predicciones financieras.</p>
+    </div>
+
+    <!-- Indicador de Carga -->
+    <div class="loading-container ion-text-center" *ngIf="loading">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+      <p>Cargando análisis de IA...</p>
+    </div>
+
+    <div class="dashboard-grid animate__animated animate__fadeInUp" *ngIf="!loading">
+      <ion-grid class="ion-no-padding">
+        <ion-row>
+          <!-- CARD A: Predicción LSTM/Prophet (Ancho completo) -->
+          <ion-col size="12">
+            <ion-card class="glass-card ai-forecast-card">
+              <div class="card-glow-layer"></div>
+              <ion-card-content class="card-content-custom">
+                <div class="ai-header">
+                  <ion-icon name="sparkles" class="ai-sparkles-icon"></ion-icon>
+                  <span>IA PREDICCIÓN DE GASTO</span>
+                </div>
+
+                <h3 class="forecast-subtitle">Pronóstico para {{ mesObjetivoNombre }}</h3>
+                <h1 class="forecast-amount">{{ montoEstimado | currency:'MXN':'symbol':'1.2-2' }}</h1>
+
+                <div class="confidence-badge">
+                  <ion-icon name="calendar-outline"></ion-icon>
+                  <span>Rango estimado: {{ intervaloConfianza[0] | currency:'MXN':'symbol':'1.0-0' }} - {{
+                    intervaloConfianza[1] | currency:'MXN':'symbol':'1.0-0' }}</span>
+                </div>
+
+                <p class="forecast-explanation">
+                  Este análisis proyecta tu consumo futuro con un índice de confianza del 95%, analizando tendencias
+                  históricas y estacionalidad acumulada.
+                </p>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <!-- CARD B: Presupuesto Semanal -->
+          <ion-col size="12" size-md="6">
+            <ion-card class="glass-card metric-card">
+              <ion-card-header>
+                <ion-card-subtitle>CONCEPTO SEMANAS</ion-card-subtitle>
+                <ion-card-title class="metric-title">Gasto de la Semana</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <div class="progress-details">
+                  <span class="spent">{{ weeklyTotal | currency:'MXN':'symbol':'1.2-2' }}</span>
+                  <span class="limit">Límite: {{ weeklyLimit | currency:'MXN':'symbol':'1.0-0' }}</span>
+                </div>
+
+                <ion-progress-bar [value]="getWeeklyProgress()"
+                  [color]="getWeeklyProgress() > 0.9 ? 'danger' : (getWeeklyProgress() > 0.7 ? 'warning' : 'success')"
+                  class="progress-bar-custom">
+                </ion-progress-bar>
+
+                <p class="progress-text" *ngIf="getWeeklyProgress() <= 0.7">
+                  Has consumido el {{ (getWeeklyProgress() * 100).toFixed(0) }}% de tu presupuesto semanal. ¡Vas
+                  excelente!
+                </p>
+                <p class="progress-text warning-text" *ngIf="getWeeklyProgress() > 0.7 && getWeeklyProgress() <= 0.9">
+                  Cuidado, has consumido el {{ (getWeeklyProgress() * 100).toFixed(0) }}% de tu presupuesto.
+                </p>
+                <p class="progress-text danger-text" *ngIf="getWeeklyProgress() > 0.9">
+                  ¡Alerta! Has alcanzado casi el total de tu presupuesto de esta semana.
+                </p>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+          <!-- CARD C: Mayor Transacción de la Semana -->
+          <ion-col size="12" size-md="6">
+            <ion-card class="glass-card metric-card highest-expense-card">
+              <ion-card-header>
+                <ion-card-subtitle>REGISTRO DESTACADO</ion-card-subtitle>
+                <ion-card-title class="metric-title">Mayor Gasto Semanal</ion-card-title>
+              </ion-card-header>
+              <ion-card-content class="highest-content">
+                <div class="highest-wrapper" *ngIf="highestExpense">
+                  <div class="highest-icon-box">
+                    <ion-icon name="cash-outline"></ion-icon>
+                  </div>
+                  <div class="highest-info">
+                    <h2 class="highest-amount">{{ highestExpense.amount | currency:'MXN':'symbol':'1.2-2' }}</h2>
+                    <p class="highest-desc">{{ highestExpense.description }}</p>
+                    <p class="highest-date">{{ highestExpense.date | date:'dd/MM/yyyy' }}</p>
+                  </div>
+                </div>
+                <div class="highest-empty" *ngIf="!highestExpense">
+                  <ion-icon name="wallet-outline"></ion-icon>
+                  <p>No se registran transacciones esta semana</p>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <!-- PANEL D: Monitor de Anomalías / Seguridad Financiera -->
+          <ion-col size="12">
+            <ion-card class="glass-card anomaly-card">
+              <ion-card-header class="border-bottom-custom">
+                <div class="anomaly-header">
+                  <ion-icon name="analytics-outline" class="anomaly-icon"></ion-icon>
+                  <ion-card-title class="metric-title">Monitoreo de Anomalías</ion-card-title>
+                </div>
+                <ion-card-subtitle>SEGURIDAD Y CONTROL DE CONSUMOS</ion-card-subtitle>
+              </ion-card-header>
+
+              <ion-card-content class="ion-no-padding">
+                <!-- Caso 1: Hay anomalías registradas -->
+                <ion-list lines="none" class="transparent-list" *ngIf="recentAnomalies.length > 0">
+                  <ion-item class="anomaly-item" *ngFor="let item of recentAnomalies">
+                    <div class="item-inner-wrapper">
+                      <div class="anomaly-indicator-box">
+                        <ion-icon name="alert-circle" color="danger"></ion-icon>
+                      </div>
+                      <ion-label>
+                        <h2 class="anomaly-title-text">{{ item.description }}</h2>
+                        <p class="anomaly-reason-text">⚠️ {{ item.category }} · Cargo fuera de patrón</p>
+                      </ion-label>
+                      <ion-note slot="end" class="ion-text-right">
+                        <span class="anomaly-amount-text">{{ item.amount | currency:'MXN':'symbol':'1.2-2' }}</span>
+                        <p class="anomaly-date-text">{{ item.date | date:'dd/MM' }}</p>
+                      </ion-note>
+                    </div>
+                  </ion-item>
+                </ion-list>
+
+                <!-- Caso 2: Cero anomalías (Salud financiera impecable) -->
+                <div class="anomaly-healthy-state ion-text-center ion-padding" *ngIf="recentAnomalies.length === 0">
+                  <div class="shield-icon-box">
+                    <ion-icon name="checkmark-circle" class="healthy-shield-icon"></ion-icon>
+                  </div>
+                  <h3>¡Finanzas en Buen Camino!</h3>
+                  <p>El Isolation Forest de la IA no ha detectado transacciones sospechosas ni cargos fuera de tu patrón
+                    de consumo.</p>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
 </ion-content>

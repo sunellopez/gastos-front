@@ -35,3 +35,486 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+/* =====================================================================
+ * App Theme Variables — Light Mode
+ * ===================================================================== */
+:root {
+  --ion-color-primary: #8b5cf6;
+  --ion-color-primary-rgb: 139, 92, 246;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #7c3aed;
+  --ion-color-primary-tint: #a78bfa;
+
+  --ion-color-secondary: #6366f1;
+  --ion-color-secondary-rgb: 99, 102, 241;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #4f46e5;
+  --ion-color-secondary-tint: #818cf8;
+
+  --ion-color-success: #10b981;
+  --ion-color-success-rgb: 16, 185, 129;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-shade: #059669;
+  --ion-color-success-tint: #34d399;
+
+  --ion-color-warning: #f59e0b;
+  --ion-color-warning-rgb: 245, 158, 11;
+  --ion-color-warning-contrast: #ffffff;
+  --ion-color-warning-shade: #d97706;
+  --ion-color-warning-tint: #fbbf24;
+
+  --ion-color-danger: #ef4444;
+  --ion-color-danger-rgb: 239, 68, 68;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-shade: #dc2626;
+  --ion-color-danger-tint: #f87171;
+
+  --ion-color-medium: #64748b;
+  --ion-color-medium-rgb: 100, 116, 139;
+  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-shade: #475569;
+  --ion-color-medium-tint: #94a3b8;
+
+  --ion-color-light: #f8fafc;
+  --ion-color-light-rgb: 248, 250, 252;
+  --ion-color-light-contrast: #0f172a;
+  --ion-color-light-shade: #e2e8f0;
+  --ion-color-light-tint: #ffffff;
+
+  --ion-background-color: #f8fafc;
+  --ion-background-color-rgb: 248, 250, 252;
+  --ion-text-color: #0f172a;
+  --ion-text-color-rgb: 15, 23, 42;
+  --ion-toolbar-background: rgba(248, 250, 252, 0.8);
+  --ion-toolbar-text-color: #0f172a;
+  --ion-tab-bar-background: #ffffff;
+
+  --glass-card-bg: rgba(255, 255, 255, 0.45);
+  --glass-card-border: rgba(255, 255, 255, 0.65);
+  --input-bg-custom: rgba(255, 255, 255, 0.6);
+  --text-title-color: #0f172a;
+  --text-subtitle-color: #64748b;
+}
+
+/* =====================================================================
+ * App Theme Variables — Dark Mode
+ * ===================================================================== */
+@media (prefers-color-scheme: dark) {
+  body {
+    --ion-color-primary: #a78bfa;
+    --ion-color-primary-rgb: 167, 139, 250;
+    --ion-color-primary-contrast: #0f172a;
+    --ion-color-primary-shade: #8b5cf6;
+    --ion-color-primary-tint: #c084fc;
+
+    --ion-color-secondary: #818cf8;
+    --ion-color-secondary-rgb: 129, 140, 248;
+    --ion-color-secondary-contrast: #0f172a;
+    --ion-color-secondary-shade: #6366f1;
+    --ion-color-secondary-tint: #a5b4fc;
+
+    --ion-color-success: #34d399;
+    --ion-color-success-rgb: 52, 211, 153;
+    --ion-color-success-contrast: #0f172a;
+    --ion-color-success-shade: #059669;
+    --ion-color-success-tint: #6ee7b7;
+
+    --ion-color-warning: #fbbf24;
+    --ion-color-warning-rgb: 251, 191, 36;
+    --ion-color-warning-contrast: #0f172a;
+    --ion-color-warning-shade: #d97706;
+    --ion-color-warning-tint: #fcd34d;
+
+    --ion-color-danger: #f87171;
+    --ion-color-danger-rgb: 248, 113, 113;
+    --ion-color-danger-contrast: #0f172a;
+    --ion-color-danger-shade: #ef4444;
+    --ion-color-danger-tint: #fca5a5;
+
+    --ion-color-medium: #94a3b8;
+    --ion-color-medium-rgb: 148, 163, 184;
+    --ion-color-medium-contrast: #0f172a;
+    --ion-color-medium-shade: #64748b;
+    --ion-color-medium-tint: #cbd5e1;
+
+    --ion-color-light: #1e293b;
+    --ion-color-light-rgb: 30, 41, 59;
+    --ion-color-light-contrast: #f8fafc;
+    --ion-color-light-shade: #0f172a;
+    --ion-color-light-tint: #334155;
+
+    --ion-background-color: #0b0f19;
+    --ion-background-color-rgb: 11, 15, 25;
+    --ion-text-color: #f8fafc;
+    --ion-text-color-rgb: 248, 250, 252;
+    --ion-toolbar-background: rgba(11, 15, 25, 0.85);
+    --ion-toolbar-text-color: #f8fafc;
+    --ion-tab-bar-background: #0f172a;
+
+    --glass-card-bg: rgba(15, 23, 42, 0.55);
+    --glass-card-border: rgba(255, 255, 255, 0.07);
+    --input-bg-custom: rgba(255, 255, 255, 0.06);
+    --text-title-color: #f8fafc;
+    --text-subtitle-color: #94a3b8;
+  }
+}
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap');
+
+/* Base App Font */
+ion-app, body {
+  font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* =====================================================================
+ * Global Loader Overlay — Glassmorphic Premium Spinner
+ * ===================================================================== */
+.global-loader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: loader-fade-in 0.2s ease-out;
+}
+
+.loader-glass-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.2rem 3rem;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  gap: 1rem;
+  position: relative;
+}
+
+.spinner-ring {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: 3.5px solid rgba(167, 139, 250, 0.2);
+  border-top-color: #8b5cf6;
+  border-right-color: #6366f1;
+  animation: spin-gradient 0.85s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  position: absolute;
+}
+
+.spinner-logo {
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.65rem;
+  color: #a78bfa;
+  animation: pulse-glow 1.8s ease-in-out infinite;
+  z-index: 1;
+}
+
+.loader-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 0.04rem;
+  opacity: 0.9;
+  margin-top: 3.8rem;
+}
+
+/* Dark mode loader adjustments */
+@media (prefers-color-scheme: dark) {
+  .loader-glass-card {
+    background: rgba(15, 23, 42, 0.55);
+    border: 1px solid rgba(167, 139, 250, 0.18);
+  }
+
+  .spinner-ring {
+    border-color: rgba(167, 139, 250, 0.15);
+    border-top-color: #a78bfa;
+    border-right-color: #818cf8;
+  }
+
+  .spinner-logo {
+    color: #c084fc;
+  }
+}
+
+/* =====================================================================
+ * Global Dark Mode — Comprehensive Overrides
+ * ===================================================================== */
+@media (prefers-color-scheme: dark) {
+
+  /* --- Tab Bar --- */
+  ion-tab-bar {
+    --background: #0f172a;
+    --border: 1px solid rgba(255, 255, 255, 0.06);
+    --color: #64748b;
+    --color-selected: #a78bfa;
+  }
+
+  /* --- Modales: el fix más importante --- */
+  /* ion-modal renderiza fuera del shadow DOM del componente,
+     hay que apuntar con ::part y variables CSS globales */
+  ion-modal {
+    --background: #0f172a;
+
+    &::part(content) {
+      background: #0f172a;
+    }
+  }
+
+  /* Todo el contenido dentro de un modal */
+  ion-modal ion-content {
+    --background: #0f172a;
+    --color: #f8fafc;
+  }
+
+  ion-modal ion-header ion-toolbar {
+    --background: #0b0f19;
+    --color: #f8fafc;
+    --border-color: rgba(255, 255, 255, 0.06);
+  }
+
+  ion-modal ion-title {
+    color: #f8fafc;
+  }
+
+  /* Modal título y subtítulo del formulario */
+  .modal-title-box {
+    h1 { color: #f8fafc !important; }
+    p  { color: #94a3b8 !important; }
+  }
+
+  .modal-header-custom {
+    --background: #0b0f19 !important;
+    ion-toolbar { --background: #0b0f19 !important; }
+    ion-button  { --color: #94a3b8 !important; }
+  }
+
+  /* --- Expense Form dentro del modal --- */
+  app-expense-form {
+    h5 { color: #94a3b8 !important; }
+    ion-icon { color: #94a3b8 !important; }
+
+    ion-item {
+      --background: rgba(255, 255, 255, 0.05) !important;
+      border-color: rgba(255, 255, 255, 0.08) !important;
+
+      &.item-has-focus {
+        --background: rgba(255, 255, 255, 0.09) !important;
+        border-color: rgba(167, 139, 250, 0.4) !important;
+      }
+
+      ion-input {
+        color: #f1f5f9 !important;
+        --placeholder-color: #64748b !important;
+      }
+
+      ion-textarea {
+        color: #f1f5f9 !important;
+        --placeholder-color: #64748b !important;
+      }
+    }
+
+    .category-container {
+      background: rgba(255, 255, 255, 0.04) !important;
+      border-color: rgba(255, 255, 255, 0.07) !important;
+    }
+
+    .category-autodetect {
+      color: #e2e8f0 !important;
+      span { color: #cbd5e1 !important; }
+    }
+
+    .category-suggestions p { color: #94a3b8 !important; }
+
+    .category-chip {
+      background: rgba(167, 139, 250, 0.1) !important;
+      border-color: rgba(167, 139, 250, 0.2) !important;
+      color: #c4b5fd !important;
+      ion-icon { color: #a78bfa !important; }
+    }
+  }
+
+  /* --- Página de Inicio - textos y tarjetas --- */
+  .inicio-content, .historial-content {
+    --background: #0b0f19;
+  }
+
+  .header-welcome {
+    h1 {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    p { color: #64748b !important; }
+  }
+
+  .transactions-card {
+    background: rgba(15, 23, 42, 0.7) !important;
+    border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  }
+
+  .list-header-custom {
+    --color: #f8fafc !important;
+    ion-button { --color: #a78bfa !important; }
+  }
+
+  .transaction-item {
+    border-bottom-color: rgba(255, 255, 255, 0.04) !important;
+    --background-hover: rgba(167, 139, 250, 0.05) !important;
+  }
+
+  .tx-desc    { color: #f1f5f9 !important; }
+  .tx-amount  { color: #f1f5f9 !important; }
+  .tx-currency { color: #94a3b8 !important; }
+  .tx-date    { color: #64748b !important; }
+
+  .tx-category-badge {
+    color: #a78bfa !important;
+    background: rgba(167, 139, 250, 0.08) !important;
+    border-color: rgba(167, 139, 250, 0.15) !important;
+  }
+
+  .tx-empty {
+    color: #64748b !important;
+    ion-icon { color: #334155 !important; }
+  }
+
+  /* --- Detail Modal content --- */
+  .detail-container { background: transparent; }
+
+  .detail-card {
+    background: rgba(15, 23, 42, 0.7) !important;
+    border-color: rgba(255, 255, 255, 0.06) !important;
+  }
+
+  .detail-amount          { color: #f8fafc !important; }
+  .detail-currency        { color: #94a3b8 !important; }
+  .detail-category-name   { color: #f8fafc !important; }
+  .detail-value           { color: #e2e8f0 !important; }
+  .detail-item h3         { color: #64748b !important; }
+  .detail-item ion-icon   { color: #a78bfa !important; }
+
+  .ml-card {
+    background: rgba(16, 185, 129, 0.07) !important;
+    border-left-color: #34d399 !important;
+    .ml-subtitle  { color: #a78bfa !important; }
+    .ml-text      { color: #94a3b8 !important; }
+
+    &.anomaly-card {
+      background: rgba(239, 68, 68, 0.08) !important;
+      border-left-color: #f87171 !important;
+    }
+  }
+
+  /* --- Dashboard --- */
+  .dashboard-content { --background: #0b0f19; }
+
+  .glass-card {
+    background: rgba(15, 23, 42, 0.6) !important;
+    border-color: rgba(255, 255, 255, 0.07) !important;
+  }
+
+  .welcome-section {
+    .greeting-subtitle { color: #64748b !important; }
+    .greeting-title {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%) !important;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .greeting-desc { color: #64748b !important; }
+  }
+
+  .ai-forecast-card {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.14) 0%, rgba(236, 72, 153, 0.08) 100%) !important;
+    border-color: rgba(167, 139, 250, 0.25) !important;
+
+    .ai-header { color: #a78bfa !important; }
+    .forecast-subtitle { color: #94a3b8 !important; }
+    .forecast-amount {
+      background: linear-gradient(135deg, #c4b5fd 0%, #e879f9 100%) !important;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .confidence-badge {
+      background: rgba(167, 139, 250, 0.1) !important;
+      border-color: rgba(167, 139, 250, 0.2) !important;
+      color: #c4b5fd !important;
+    }
+    .forecast-explanation { color: #94a3b8 !important; }
+  }
+
+  .metric-card {
+    ion-card-subtitle { color: #64748b !important; }
+    .metric-title { color: #f1f5f9 !important; }
+  }
+
+  .progress-details {
+    .spent { color: #f1f5f9 !important; }
+    .limit { color: #64748b !important; }
+  }
+
+  .progress-text { color: #94a3b8 !important; }
+
+  .highest-info {
+    .highest-amount { color: #f1f5f9 !important; }
+    .highest-desc   { color: #cbd5e1 !important; }
+    .highest-date   { color: #64748b !important; }
+  }
+
+  .anomaly-title-text  { color: #f1f5f9 !important; }
+  .anomaly-date-text   { color: #64748b !important; }
+
+  .anomaly-healthy-state {
+    color: #94a3b8 !important;
+    h3 { color: #e2e8f0 !important; }
+    p  { color: #94a3b8 !important; }
+  }
+
+  /* --- Loader dark fix --- */
+  .loader-glass-card {
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(167, 139, 250, 0.18);
+  }
+
+  .spinner-ring {
+    border-color: rgba(167, 139, 250, 0.15);
+    border-top-color: #a78bfa;
+    border-right-color: #818cf8;
+  }
+
+  .spinner-logo { color: #c084fc; }
+}
+
+/* =====================================================================
+ * Keyframe Animations (global)
+ * ===================================================================== */
+@keyframes loader-fade-in {
+  from { opacity: 0; backdrop-filter: blur(0px); }
+  to   { opacity: 1; backdrop-filter: blur(6px); }
+}
+
+@keyframes spin-gradient {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.08); }
+}
